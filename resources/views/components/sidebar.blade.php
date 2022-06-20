@@ -9,7 +9,7 @@
           <!-- brand -->
           <a href="./" class="navbar-brand">
             <!-- <img src="assets/img/logo.png" alt="..."> -->
-            <span class="hidden-folded d-inline l-s-n-1x">Muideen Aliu</span> </a
+            <span class="hidden-folded d-inline l-s-n-1x">Exam Test</span> </a
           ><!-- / brand -->
         </div>
         <!-- Flex nav content -->
@@ -20,7 +20,7 @@
                 <span class="text-muted">Main</span>
               </li>
               <li>
-                <a href="dashboard.php"
+                <a href="{{route('dashboard')}}"
                   ><span class="nav-icon text-primary"
                     ><i data-feather="home"></i
                   ></span>
@@ -35,18 +35,18 @@
               <li>
                 <a href="#" class=""
                   ><span class="nav-icon"><i data-feather="grid"></i></span>
-                  <span class="nav-text">Staffs</span>
+                  <span class="nav-text">Exams</span>
                   <span class="nav-caret"></span
                 ></a>
                 <ul class="nav-sub nav-mega">
                   <li>
-                    <a href="new-staff.php" class=""
-                      ><span class="nav-text">Add a new Staff</span></a
+                    <a href="{{route('exams.create')}}" class=""
+                      ><span class="nav-text">Add a new Exam</span></a
                     >
                   </li>
                   <li>
-                    <a href="staffs.php" class=""
-                      ><span class="nav-text">View all Staffs</span></a
+                    <a href="{{route('exams.index')}}" class=""
+                      ><span class="nav-text">View all Exams</span></a
                     >
                   </li>
                 </ul>
