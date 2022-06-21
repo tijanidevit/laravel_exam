@@ -13,7 +13,7 @@ class ExamQuestionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class ExamQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'question' => 'required',
+            'category_id' => 'required',
+            'option1' => 'required',
+            'option2' => 'required',
+            'option3' => 'required',
+            'option4' => 'required',
+            'correct_option' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'category_id.required' => "Please select a category",
         ];
     }
 }

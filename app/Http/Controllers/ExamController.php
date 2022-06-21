@@ -121,6 +121,8 @@ class ExamController extends Controller
                 ],200);
             }
             else{
+                // $exam->questions->answers()->delete();
+                $exam->questions()->delete();
                 $exam->delete();
                 return response([
                     'status' => true,

@@ -1,13 +1,13 @@
-@extends('components.layout') @section('title') New Exam @endsection
-@section('page_title') New Exam @endsection @section('content')
+@extends('components.layout') @section('title') Edit Exam @endsection
+@section('page_title') Edit Exam @endsection @section('content')
 <div class="card">
     <div class="card-body">
         <div class="card-title">
-            <h5>Add new exam</h5>
+            <h5>Edit exam - {{$exam->exam_title}}</h5>
         </div>
         <div class="card-text">
             <div class="" id="examsArea">
-                <form id="addExamForm" method="post">
+                <form id="updateExamForm" method="post">
                     <div id="result"></div>
                     <div class="form-group">
                         <label for="examTitle">Exam Title</label>
@@ -17,6 +17,7 @@
                             id="examTitle"
                             required
                             name="exam_title"
+                            value="{{old('exam_title') ?: $exam->exam_title}}"
                         />
                     </div>
 
@@ -31,13 +32,12 @@
 @endsection @section('ajax')
 <script>
     $(document).ready(function () {
-        $("#addExamForm").submit(function (e) {
-            // alert('dd');
+        $("#updateExamForm").submit(function (e) {
             e.preventDefault();
             var output;
             $.ajax({
-                url: '{{route("api.store_exams")}}',
-                type: "post",
+                url: '{{route("api.update_exams", $exam->id)}}',
+                type: "patch",
                 data: $(this).serialize(),
                 accept: "application/json",
                 cache: false,
@@ -49,7 +49,10 @@
                 success: function (res) {
                     if (res.status) {
                         output = `<div class="alert alert-success"> ${res.message}</div>`;
-                        $("#addExamForm")[0].reset();
+                        $("#updateExamForm")[0].reset();
+                        setTimeout(() => {
+                            location.href = '{{route("exams.index")}}'
+                        }, 2000);
                     } else {
                         output = `<div class="alert alert-warning"> ${res.message}</div>`;
                     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionAnswersTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateQuestionAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_answers', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('exam_question_id');
-            $table->string('answer');
-            $table->integer('is_correct')->default(0);
+            $table->string('category');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateQuestionAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_answers');
+        Schema::dropIfExists('categories');
     }
 }

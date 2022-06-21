@@ -24,14 +24,14 @@ class ExamRequest extends FormRequest
     public function rules()
     {
         return [
-            'exam_title' => 'required,unique:exams'
+            'exam_title' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'exam_title.unique' => "You have already created an exam with this title",
+            // 'exam_title.unique' => "You have already created an exam with this title",
         ];
     }
 }

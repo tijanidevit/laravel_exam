@@ -2,40 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExamQuestionRequest;
+use App\Models\Category;
+use App\Models\Exam;
 use App\Models\ExamQuestion;
 use Illuminate\Http\Request;
 
 class ExamQuestionController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+{    
+    public function create(Exam $exam)
     {
-        //
+        $categories = Category::all()->sortBy('category');
+        return view('questions.create_question', compact('categories', 'exam'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(ExamQuestionRequest $request, Exam $exam)
     {
-        //
-    }
+        $data = $request->validated();
+        try {
+            $question_data =[
+                'question' => $data['question'],
+                'category_id' => $data['category_id'],
+            ];
+            $question = $exam->questions()->create($question_data);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+            for ($i=1; $i <=4 ; $i++) { 
+                $answer_data = [
+                    'answer' => $data['option'.$i],
+                ];
+                if ('option'.$i == $data['correct_option']) {
+                    $answer_data['is_correct'] = 1;
+                }
+                $question->answers()->create($answer_data);
+            }
+            return response([
+                'status' => true,
+                'message' => 'Exam question created successfully',
+            ],200);
+        } catch (Exception $ex) {
+            return response([
+                'status' => false,
+                'message' => $ex->getMessage(),
+            ],500);
+        }
     }
 
     /**

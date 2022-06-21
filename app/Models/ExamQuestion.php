@@ -19,4 +19,8 @@ class ExamQuestion extends Model
     {
         return $this->belongsTo(Exam::class);
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
